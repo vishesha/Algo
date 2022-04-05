@@ -413,7 +413,7 @@ subArraySumBruteForce_1(A,n);
         cin>>M[i][j];
     }
     }
-        rectangleSumDP_6(row,col,M)
+        rectangleSumDP_6(row,col,M);
     }
     return 0;
 }
