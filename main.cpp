@@ -4,66 +4,64 @@
 using namespace std;
 
 
-void subArraySumBruteForce_1(int *A, int n){
-int max=INT_MIN;
-int l=0, r=n; // initialize leftmost index "l" to 0 and rightmost index "r" to n 
-    for (int i = 0; i < n; i++) // loop for calculating all possible subarrays
-    for (int j = i; j < n; j++) {
-        int sum = 0;
-        for (int k = i; k <= j; k++) // loop for calculating the sum of each subarray and store in sum
-            sum += A[k];
-        if (sum > max){  // if the newly calculated sum is greater than max then update max
-			max = sum;
-       		l=i;
-      		r=j;
+
+void subArraySumBruteForce_1(int *A, int n)
+{
+	int max = INT_MIN;
+	int l = 0, r = n;			// initialize leftmost index "l" to 0 and rightmost index "r" to n
+	for (int i = 0; i < n; i++) // loop for calculating all possible subarrays
+		for (int j = i; j < n; j++)
+		{
+			int sum = 0;
+			for (int k = i; k <= j; k++) // loop for calculating the sum of each subarray and store in sum
+				sum += A[k];
+			if (sum > max)
+			{ // if the newly calculated sum is greater than max then update max
+				max = sum;
+				l = i;
+				r = j;
+			}
 		}
-    }
-    cout<<l+1<<" "<<r+1<<" "<<max;
+	cout << l + 1 << " " << r + 1 << " " << max << endl;
 }
 
-
-
-void SubArraySumDP_2(int *A,int n)
+void SubArraySumDP_2(int *A, int n)
 {
-	int sum;
+	int T[n][n]; // T[i][j] stores the sum of elements of array from i through j.
+	int max = INT_MIN;
+	int l = -1, r = -1; // initialize leftmost index "l" to -1 and rightmost index "r" to -1
 
-	int S[n][n]; // S[i][j] is considered as sum of elements of array from i to j indexes
-
-	int maximumsum = INT_MIN;
-	int start = -1, end = -1;
-
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++) // loop for computing all possible subarray sums
 	{
 		for (int j = i; j < n; j++)
 		{
-			if (i == j)
+			if (i == j) // if it is the same element then the sum is the element itself
 			{
-				S[i][i] = A[i];
-				if (S[i][i] > maximumsum)
+				T[i][i] = A[i];
+				if (T[i][i] > max) // if the newly calculated sum is greater than max then update max
 				{
-					maximumsum = S[i][i];
-					start = i;
-					end = i;
+					max = T[i][i];
+					l = i;
+					r = i;
 				}
 			}
-			else
+			else // else it is the sum until previous elements and the new element
 			{
-				S[i][j] = S[i][j - 1] + A[j]; // implementing substructure property for Dynamic programming
-				if (S[i][j] > maximumsum)
+				T[i][j] = T[i][j - 1] + A[j]; // implementing substructure property for Dynamic programming
+				if (T[i][j] > max)			  // if the newly calculated sum is greater than max then update max
 				{
-					maximumsum = S[i][j];
-					start = i;
-					end = j;
+					max = T[i][j];
+					l = i;
+					r = j;
 				}
 			}
 		}
 	}
 
-	cout << start + 1 << " " << end + 1 << " " << maximumsum << endl;
+	cout << l + 1 << " " << r + 1 << " " << max << endl;
 }
 
-
-int Maximum_sum(int *A, int S[], int i, int &start, int &end, int &maximumsum)
+int Maximum_sum(int *A, int T[], int i, int &l, int &r, int &max)
 {
 	if (i == 0)
 	{
@@ -71,107 +69,105 @@ int Maximum_sum(int *A, int S[], int i, int &start, int &end, int &maximumsum)
 	}
 	else
 	{
-		if (S[i] == INT_MIN) // Checking if value of substructure is already calculated
+		if (T[i] == INT_MIN) // Checking if value of substructure is already calculated
 		{
-			int sum = Maximum_sum(A, S, i - 1, start, end, maximumsum) + A[i]; // Calculating solution of substructure and implementing dynamic programming with the calculated value
+			int sum = Maximum_sum(A, T, i - 1, l, r, max) + A[i]; // Calculating solution of substructure and implementing dynamic programming with the calculated value using recursion
 			if (sum > A[i])
 			{
-				S[i] = sum;
-				if (maximumsum < S[i])
+				T[i] = sum;
+				if (max < T[i])
 				{
-					maximumsum = S[i];
-					end = i;
+					max = T[i];
+					r = i;
 				}
 			}
 			else
 			{
-				S[i] = A[i];
-				if (maximumsum < S[i])
+				T[i] = A[i];
+				if (max < T[i])
 				{
-					maximumsum = S[i];
-					start = i;
-					end = i;
+					max = T[i];
+					l = i;
+					r = i;
 				}
 			}
 		}
 		else
 		{
-			int sum = S[i - 1] + A[i]; // implementing substructure property for Dynamic programming
+			int sum = T[i - 1] + A[i]; // implementing substructure property for Dynamic programming
 			if (sum > A[i])
 			{
-				S[i] = sum;
-				if (maximumsum < S[i])
+				T[i] = sum;
+				if (max < T[i])
 				{
-					maximumsum = S[i];
-					end = i;
+					max = T[i];
+					r = i;
 				}
 			}
 			else
 			{
-				S[i] = A[i];
-				if (maximumsum < S[i])
+				T[i] = A[i];
+				if (max < T[i])
 				{
-					maximumsum = S[i];
-					start = i;
-					end = i;
+					max = T[i];
+					l = i;
+					r = i;
 				}
 			}
 		}
 	}
-	return S[i];
+	return T[i];
 }
 
-
-void SubArraySumDP_3a(int *A, int n)  {
-int start = 0;
-	int end = 0;
-	int maximumsum = INT_MIN;
-	int S[n]; // S[i] contains maximum sum in contiguous subarray till ith index
+void SubArraySumDP_3a(int *A, int n)
+{
+	int l = 0;
+	int r = 0;
+	int max = INT_MIN;
+	int T[n]; // T[i] contains maximum sum in contiguous subarray till ith index
 	for (int i = 0; i < n; i++)
 	{
-		S[i] = INT_MIN;
+		T[i] = INT_MIN;
 	}
-	int sum = Maximum_sum(A, S, n - 1, start, end, maximumsum);
+	int sum = Maximum_sum(A, T, n - 1, l, r, max);
 
-	cout << start + 1 << " " << end + 1 << " " << maximumsum << endl;
+	cout << l + 1 << " " << r + 1 << " " << max << endl;
 }
 
-
-
-
-void SubArraySumDP_3b(int *A, int n)  {
-  int S[n]; // S[i] contains maximum sum in contiguous subarray till ith index
+void SubArraySumDP_3b(int *A, int n)
+{
+	int T[n]; // T[i] contains maximum sum in contiguous subarray till ith index
 	for (int i = 0; i < n; i++)
 	{
-		S[i] = A[i];
+		T[i] = A[i];
 	}
 
-	int maximumsum = S[0];
-	int start = 0, end = 0;
+	int max = T[0];
+	int l = 0, r = 0;
 
 	for (int i = 1; i < n; i++)
 	{
-		if (S[i] < S[i - 1] + A[i]) // implementing substructure property for Dynamic programming
+		if (T[i] < T[i - 1] + A[i]) // implementing substructure property for Dynamic programming
 		{
-			S[i] = S[i - 1] + A[i];
-			if (maximumsum < S[i])
+			T[i] = T[i - 1] + A[i];
+			if (max < T[i])
 			{
-				maximumsum = S[i];
-				end = i;
+				max = T[i];
+				r = i;
 			}
 		}
 		else
 		{
-			if (maximumsum < S[i])
+			if (max < T[i])
 			{
-				maximumsum = S[i];
-				start = i;
-				end = i;
+				max = T[i];
+				l = i;
+				r = i;
 			}
 		}
 	}
 
-	cout << start + 1 << " " << end + 1 << " " << maximumsum << endl;
+	cout << l + 1 << " " << r + 1 << " " << max << endl;
 }
 
 void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
@@ -180,7 +176,7 @@ void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 	int maxrectanglesum = INT_MIN;
 	int a = -1, b = -1, c = -1, d = -1;
 	int total;
-
+//We will use 4 nested loops to fix the corners of the rectangle/submatrix
 	for (int p = 0; p < m; p++)
 	{
 		for (int q = 0; q < n; q++)
@@ -190,6 +186,7 @@ void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 				for (int s = q; s < n; s++)
 				{
 					total = 0;
+//then we use another 2 nested loops to calculate the sum of that fixed submatrix.
 					for (int i = p; i <= r; i++)
 					{
 						for (int j = q; j <= s; j++)
@@ -215,7 +212,7 @@ void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 }
 
 
-int maximum_subarray_sum(vector<int> &A, int &begin, int &last, int n) // Using maxsubarray problem in task 3b
+int maximum_subarray_sum(vector<int> &A, int &begin, int &last, int n) // Using maxsubarray problem in task 3b(Implementation of Kadane's DP algorithm for 1D array)
 {
 	int max_sum = A[0];
 	int total = A[0];
@@ -262,18 +259,20 @@ void rectangleSumDP_5(int m, int n, vector<int> matrix[])
 		for (r = l; r < n; r++)
 		{
 
-			vector<int> temp(m, 0);
+			vector<int> temp(m, 0);  // Initialize all elements of temp as 0
 			for (i = 0; i < m; i++)
 			{
 				for (j = l; j <= r; j++)
 				{
-					temp[i] = temp[i] + matrix[i][j];
+					temp[i] = temp[i] + matrix[i][j];  // Calculate sum between current left(l) and right(r) for every row 'i
 				}
 			}
+/*Find the maximum sum subarray in temp[].The function below also sets values of start and finish.
+So 'sum' is sum of rectangle between (start, left) and (finish, right) which is the maximum sum with boundary columns strictly as left and right.*/
 
-			sum = maximum_subarray_sum(temp, start, end, m);
+			sum = maximum_subarray_sum(temp, start, end, m); //using dynamic programming Algorithm3(Problem 1)
 
-			if (sum > totalSum)
+			if (sum > totalSum)// Compare sum with max_total so far with,If sum is more, then update maxSum and other output values
 			{
 				totalSum = sum;
 				a = l;
@@ -284,7 +283,7 @@ void rectangleSumDP_5(int m, int n, vector<int> matrix[])
 		}
 	}
 
-	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << totalSum << endl;
+	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << totalSum << endl; // Print final values
 }
 
 
@@ -299,17 +298,20 @@ void rectangleSumDP_6(int m, int n, vector<int> matrix[])
 	for (l = 0; l < n; l++)
 	{
 
-		vector<int> temp(m, 0);
+		vector<int> temp(m, 0);  // Initialize all elements of temp as 0
 
 		for (r = l; r < n; r++)
 		{
 
 			for (i = 0; i < m; i++)
-				temp[i] = temp[i] + matrix[i][r];
+				temp[i] = temp[i] + matrix[i][r];  // Calculate sum between current left and right for every row 'i
 
-			sum = maximum_subarray_sum(temp, start, end, m);
+// Find the maximum sum subarray in temp[].The function below also sets values of start and finish.
+//So 'sum' is sum of rectangle between (start, left) and (finish, right) which is the maximum sum with boundary columns strictly as left and right.
+			
+sum = maximum_subarray_sum(temp, start, end, m);    //using dynamic programming Algorithm3(Problem 1)
 
-			if (sum > max_total)
+			if (sum > max_total) // Compare sum with max_total so far with,If sum is more, then update maxSum and other output values
 			{
 				max_total = sum;
 				a = l;
@@ -320,7 +322,7 @@ void rectangleSumDP_6(int m, int n, vector<int> matrix[])
 		}
 	}
 
-	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << max_total << endl;
+	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << max_total << endl;  // Print final values
 }
 
 
