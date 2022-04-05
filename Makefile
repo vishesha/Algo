@@ -1,2 +1,2 @@
 all:
-	g++ -o main.cpp -I.
+	g++ -o MarsBase main.cpp -I.
