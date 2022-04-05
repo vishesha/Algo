@@ -315,7 +315,7 @@ void rectangleSumDP_6(int m, int n, vector<int> matrix[])
 				a = l;
 				b = r;
 				c = start;
-				Bottom = end;
+				d = end;
 			}
 		}
 	}
