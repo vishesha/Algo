@@ -7,7 +7,7 @@ void subArraySumBruteForce_1(int *A, int n){
 int max=INT_MIN;
 int start=0,end=n;
     for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++) {
+    for (int j = i; j < n; j++) {
         int sum = 0;
         for (int k = i; k <= j; k++)
             sum += A[k];
