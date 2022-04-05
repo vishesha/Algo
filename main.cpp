@@ -60,7 +60,7 @@ void SubArraySumDP_2(int *A,int n)
 }
 
 
-int Maximum_sum(vector<int> A, int S[], int i, int &start, int &end, int &maximumsum)
+int Maximum_sum(int *A, int S[], int i, int &start, int &end, int &maximumsum)
 {
 	if (i == 0)
 	{
@@ -413,7 +413,7 @@ subArraySumBruteForce_1(A,n);
         cin>>M[i][j];
     }
     }
-        rectangleSumDP_6(int m, int n, vector<int> matrix[])
+        rectangleSumDP_6(row,col,M)
     }
     return 0;
 }
