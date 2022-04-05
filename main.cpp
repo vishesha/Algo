@@ -3,32 +3,25 @@
 #include <vector>
 using namespace std;
 
+
 void subArraySumBruteForce_1(int *A, int n){
-	int sum;
-	int maximumsum = INT_MIN;
-	int start = -1, end = -1;
-
-	for (int i = 0; i < n; i++) // iterating through each element in array considering it as left index for maxsum
-	{
-		for (int j = i; j < n; j++) // iterating through each element from i in array considering it as right index for maxsum
-		{
-			sum = 0;
-			for (int k = i; k <= j; k++) // iterating through each element from i to j to calculate sum
-			{
-				sum = sum + A[k];
-			}
-
-			if (sum > maximumsum) // checking if current sum is greater than existing maximum sum and updating values
-			{
-				maximumsum = sum;
-				start = i;
-				end = j;
-			}
+int max=INT_MIN;
+int l=0, r=n; // initialize leftmost index "l" to 0 and rightmost index "r" to n 
+    for (int i = 0; i < n; i++) // loop for calculating all possible subarrays
+    for (int j = i; j < n; j++) {
+        int sum = 0;
+        for (int k = i; k <= j; k++) // loop for calculating the sum of each subarray and store in sum
+            sum += A[k];
+        if (sum > max){  // if the newly calculated sum is greater than max then update max
+			max = sum;
+       		l=i;
+      		r=j;
 		}
-	}
-
-	cout << start + 1 << " " << end + 1 << " " << maximumsum << endl;
+    }
+    cout<<l+1<<" "<<r+1<<" "<<max;
 }
+
+
 
 void SubArraySumDP_2(int *A,int n)
 {
@@ -184,9 +177,9 @@ void SubArraySumDP_3b(int *A, int n)  {
 void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 {
 
-	int maximumsum = INT_MIN;
-	int x1 = -1, y1 = -1, x2 = -1, y2 = -1;
-	int sum;
+	int maxrectanglesum = INT_MIN;
+	int a = -1, b = -1, c = -1, d = -1;
+	int total;
 
 	for (int p = 0; p < m; p++)
 	{
@@ -196,138 +189,138 @@ void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 			{
 				for (int s = q; s < n; s++)
 				{
-					sum = 0;
+					total = 0;
 					for (int i = p; i <= r; i++)
 					{
 						for (int j = q; j <= s; j++)
 						{
-							sum = sum + M[i][j];
+							total = total + M[i][j];
 						}
 					}
 
-					if (sum > maximumsum)
+					if (total > maxrectanglesum)
 					{
-						maximumsum = sum;
-						x1 = p;
-						y1 = q;
-						x2 = r;
-						y2 = s;
+						maxrectanglesum = total;
+						a = p;
+						b = q;
+						c = r;
+						d = s;
 					}
 				}
 			}
 		}
 	}
 
-	cout << x1 + 1 << " " << y1 + 1 << " " << x2 + 1 << " " << y2 + 1 << " " << maximumsum << endl;
+	cout << a + 1 << " " << b + 1 << " " << c + 1 << " " << d + 1 << " " << maxrectanglesum << endl;
 }
 
 
-int maxsubarray(vector<int> &A, int &start, int &end, int n) // Using maxsubarray problem in task 3b
+int maximum_subarray_sum(vector<int> &A, int &begin, int &last, int n) // Using maxsubarray problem in task 3b
 {
-	int maximumsum = A[0];
-	int currentmaximum = A[0];
-	start = 0;
-	end = 0;
+	int max_sum = A[0];
+	int total = A[0];
+	begin = 0;
+	last = 0;
 
 	for (int i = 0; i < n; i++)
 	{
-		if (A[i] < currentmaximum + A[i]) // implementing substructure property for Dynamic programming
+		if (A[i] < total + A[i]) // implementing substructure property for Dynamic programming
 		{
-			currentmaximum = currentmaximum + A[i];
-			if (maximumsum < currentmaximum)
+			total = total + A[i];
+			if (max_sum < total)
 			{
-				maximumsum = currentmaximum;
-				end = i;
+				max_sum = total;
+				last = i;
 			}
 		}
 		else
 		{
-			currentmaximum = A[i];
-			if (maximumsum < currentmaximum)
+			total = A[i];
+			if (max_sum < total)
 			{
-				maximumsum = currentmaximum;
-				start = i;
-				end = i;
+				max_sum = total;
+				begin = i;
+				last = i;
 			}
 		}
 	}
 
-	return maximumsum;
+	return max_sum;
 }
 
 void rectangleSumDP_5(int m, int n, vector<int> matrix[])
 {
-	int maxSum = INT_MIN;
-	int Left, Right, Top, Bottom;
+	int totalSum = INT_MIN;
+	int a, b, c, d;
 
-	int currentleft, currentright, i, j;
+	int l, r, i, j;
 	int sum, start, end;
 
-	for (currentleft = 0; currentleft < n; currentleft++)
+	for (l = 0; l < n; l++)
 	{
 
-		for (currentright = currentleft; currentright < n; currentright++)
+		for (r = l; r < n; r++)
 		{
 
 			vector<int> temp(m, 0);
 			for (i = 0; i < m; i++)
 			{
-				for (j = currentleft; j <= currentright; j++)
+				for (j = l; j <= r; j++)
 				{
 					temp[i] = temp[i] + matrix[i][j];
 				}
 			}
 
-			sum = maxsubarray(temp, start, end, m);
+			sum = maximum_subarray_sum(temp, start, end, m);
 
-			if (sum > maxSum)
+			if (sum > totalSum)
 			{
-				maxSum = sum;
-				Left = currentleft;
-				Right = currentright;
-				Top = start;
-				Bottom = end;
+				totalSum = sum;
+				a = l;
+				b = r;
+				c = start;
+				d = end;
 			}
 		}
 	}
 
-	cout << Top + 1 << " " << Left + 1 << " " << Bottom + 1 << " " << Right + 1 << " " << maxSum << endl;
+	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << totalSum << endl;
 }
 
 
 void rectangleSumDP_6(int m, int n, vector<int> matrix[])
 {
-	int maxSum = INT_MIN;
-	int Left, Right, Top, Bottom;
+	int max_total = INT_MIN;
+	int a, b, c, d;
 
-	int currentleft, currentright, i;
+	int l, r, i;
 	int sum, start, end;
 
-	for (currentleft = 0; currentleft < n; currentleft++)
+	for (l = 0; l < n; l++)
 	{
 
 		vector<int> temp(m, 0);
 
-		for (currentright = currentleft; currentright < n; currentright++)
+		for (r = l; r < n; r++)
 		{
 
 			for (i = 0; i < m; i++)
-				temp[i] = temp[i] + matrix[i][currentright];
+				temp[i] = temp[i] + matrix[i][r];
 
-			sum = maxsubarray(temp, start, end, m);
+			sum = maximum_subarray_sum(temp, start, end, m);
 
-			if (sum > maxSum)
+			if (sum > max_total)
 			{
-				maxSum = sum;
-				Left = currentleft;
-				Right = currentright;
-				Top = start;
+				max_total = sum;
+				a = l;
+				b = r;
+				c = start;
 				Bottom = end;
 			}
 		}
 	}
 
-	cout << Top + 1 << " " << Left + 1 << " " << Bottom + 1 << " " << Right + 1 << " " << maxSum << endl;
+	cout << c + 1 << " " << a + 1 << " " << d + 1 << " " << b + 1 << " " << max_total << endl;
 }
 
 
