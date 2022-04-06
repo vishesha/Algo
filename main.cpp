@@ -1,6 +1,7 @@
 #include <iostream>
 #include<bits/stdc++.h>
 #include <vector>
+#include <chrono>
 using namespace std;
 
 
@@ -341,6 +342,10 @@ int main(int argc, char *argv[])
     for(int i=0;i<n;i++){
         cin>>A[i];
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
 subArraySumBruteForce_1(A,n);
     }
     else
@@ -352,6 +357,10 @@ subArraySumBruteForce_1(A,n);
     for(int i=0;i<n;i++){
         cin>>A[i];
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
         SubArraySumDP_2(A,n);
     }
     else
@@ -365,6 +374,10 @@ subArraySumBruteForce_1(A,n);
     for(int i=0;i<n;i++){
         cin>>A[i];
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
             SubArraySumDP_3a(A,n);
         }
 
@@ -376,6 +389,10 @@ subArraySumBruteForce_1(A,n);
     for(int i=0;i<n;i++){
         cin>>A[i];
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
             SubArraySumDP_3b(A,n);
         }
     }
@@ -392,6 +409,10 @@ subArraySumBruteForce_1(A,n);
         cin>>M[i][j];
     }
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
         rectangleSumBruteForce_4(row,col,M);
     }
     else
@@ -407,6 +428,10 @@ subArraySumBruteForce_1(A,n);
         cin>>M[i][j];
     }
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
         rectangleSumDP_5(row,col,M);
     }
     else
@@ -422,6 +447,10 @@ subArraySumBruteForce_1(A,n);
         cin>>M[i][j];
     }
     }
+auto begin = std::chrono::high_resolution_clock::now();
+        task1(n, vector);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
         rectangleSumDP_6(row,col,M);
     }
     return 0;
