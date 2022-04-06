@@ -343,10 +343,10 @@ int main(int argc, char *argv[])
         cin>>A[i];
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        subArraySumBruteForce_1(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-subArraySumBruteForce_1(A,n);
+
     }
     else
     if (argv[1][0] == '2')
@@ -358,10 +358,9 @@ subArraySumBruteForce_1(A,n);
         cin>>A[i];
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        SubArraySumDP_2(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        SubArraySumDP_2(A,n);
     }
     else
     if (argv[1][0] == '3')
@@ -375,10 +374,10 @@ auto begin = std::chrono::high_resolution_clock::now();
         cin>>A[i];
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        SubArraySumDP_3a(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-            SubArraySumDP_3a(A,n);
+            
         }
 
         if (argv[1][1] == 'b')
@@ -390,10 +389,10 @@ auto begin = std::chrono::high_resolution_clock::now();
         cin>>A[i];
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        SubArraySumDP_3b(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-            SubArraySumDP_3b(A,n);
+            
         }
     }
     else
@@ -410,10 +409,10 @@ auto begin = std::chrono::high_resolution_clock::now();
     }
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        rectangleSumBruteForce_4(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        rectangleSumBruteForce_4(row,col,M);
+        
     }
     else
     if (argv[1][0] == '5')
@@ -429,10 +428,10 @@ auto begin = std::chrono::high_resolution_clock::now();
     }
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        rectangleSumDP_5(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        rectangleSumDP_5(row,col,M);
+        
     }
     else
     if (argv[1][0] == '6')
@@ -448,10 +447,10 @@ auto begin = std::chrono::high_resolution_clock::now();
     }
     }
 auto begin = std::chrono::high_resolution_clock::now();
-        task1(n, vector);
+        rectangleSumDP_6(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        rectangleSumDP_6(row,col,M);
+        
     }
     return 0;
 }
