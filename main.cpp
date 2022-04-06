@@ -346,7 +346,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         subArraySumBruteForce_1(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-cout<<elapsed<<endl;
+ cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
     }
     else
     if (argv[1][0] == '2')
@@ -361,7 +361,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         SubArraySumDP_2(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-cout<<elapsed<<endl;
+ cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
     }
     else
     if (argv[1][0] == '3')
@@ -378,7 +378,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         SubArraySumDP_3a(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-         cout<<elapsed<<endl;   
+          cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
         }
 
         if (argv[1][1] == 'b')
@@ -393,7 +393,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         SubArraySumDP_3b(A,n);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-          cout<<elapsed<<endl;  
+         cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
         }
     }
     else
@@ -413,7 +413,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         rectangleSumBruteForce_4(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        cout<<elapsed<<endl;
+         cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
     }
     else
     if (argv[1][0] == '5')
@@ -432,7 +432,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         rectangleSumDP_5(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-cout<<elapsed<<endl;
+ cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
         
     }
     else
@@ -452,7 +452,7 @@ auto begin = std::chrono::high_resolution_clock::now();
         rectangleSumDP_6(row,col,M);
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        cout<<elapsed<<endl;
+        cout << "Time taken by function: "<< elapsed.count() << " milliseconds" << endl;
     }
     return 0;
 }
