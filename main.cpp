@@ -218,10 +218,10 @@ void rectangleSumBruteForce_4(int m, int n, vector<int> M[])
 
 int maximum_subarray_sum(vector<int> &A, int &begin, int &last, int n) // Using maxsubarray problem in task 3b(Implementation of Kadane's DP algorithm for 1D array)
 {
-	int max_sum = A[-1];
-	int total = A[-1];
-	begin = -1;
-	last = -1;
+	int max_sum = A[0];
+	int total = A[0];
+	begin = 0;
+	last = 0;
 
 	for (int i = 0; i < n; i++)
 	{
